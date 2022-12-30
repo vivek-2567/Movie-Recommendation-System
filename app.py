@@ -37,7 +37,7 @@ movies, cosine_similarity, top_50_movies, trending_posters, df = initial_load()
 
 def best_one(df):
     import math
-    x1 = math.exp(df['vote_count']//1000)
+    x1 = (df['vote_count']//1000 + 1) * 7109
     x2 = df['vote_count'] % 1000 * 7
     x3 = df['vote_average']*13
     return math.log(x1+x2+x3)
@@ -49,7 +49,8 @@ def select(df, selection):
         df = df[df[i] == 1]
 
     df = df[['id', 'title', 'vote_count', 'vote_average']]
-    df.to_csv('xyz.csv')
+    if df.empty:
+        return df
     df['sorting_column'] = df.apply(lambda x: best_one(x), axis=1)
     return df.sort_values('sorting_column', ascending=False).head(10)
 
@@ -151,33 +152,39 @@ elif rs == 'Filtering movies on the basis of Genres':
             'History', 'Horror', 'Music', 'Mystery', 'Romance', 'Science Fiction', 'TV Movie', 'Thriller', 'War', 'Western']
     )
     if st.button("Filter Movies"):
-        filter_df = select(df,option_selection)[['id','title']]
-        posters = []
-        name = []
-        for i in filter_df['id']:
-            posters.append(fetch_poster(i))
-        for i in filter_df['title']:
-            name.append(i)
-        print(posters)
-        col1, col2, col3, col4, col5 = st.columns(5)
-        st.write('') 
-        for i in range(2):
-            try:
-                with col1:
-                    st.text(str(i*5+1) + ". " + name[i*5])
-                    st.image(posters[i*5], width=200)
-                with col2:
-                    st.text(str(i*5+2) + ". " + name[i*5+1])
-                    st.image(posters[i*5+1], width=200)
-                with col3:
-                    st.text(str(i*5+3) + ". " + name[i*5+2])
-                    st.image(posters[i*5+2], width=200)
-                with col4:
-                    st.text(str(i*5+4) + ". " + name[i*5+3])
-                    st.image(posters[i*5+3], width=200)
-                with col5:
-                    st.text(str(i*5+5) + ". " + name[i*5+4])
-                    st.image(posters[i*5+4], width=200)
-            except:pass
-            st.write(' ')
-        st.markdown("<h6 style='text-align: center; color: White;'>Made with the help of TMDB API...</h6>", unsafe_allow_html=True)
+        filter_df = select(df,option_selection)
+        if filter_df.empty:
+            st.write("")
+            st.markdown("<h4 style='text-align: center; color: White;'>Sorry, We can't find any movie according to your selections...</h4>", unsafe_allow_html=True)
+        else: 
+            filter_df = filter_df[['id','title']]
+            posters = []
+            name = []
+            for i in filter_df['id']:
+                print(i)
+                posters.append(fetch_poster(i))
+            for i in filter_df['title']:
+                name.append(i)
+            print(posters)
+            col1, col2, col3, col4, col5 = st.columns(5)
+            st.write('') 
+            for i in range(2):
+                try:
+                    with col1:
+                        st.text(str(i*5+1) + ". " + name[i*5])
+                        st.image(posters[i*5], width=200)
+                    with col2:
+                        st.text(str(i*5+2) + ". " + name[i*5+1])
+                        st.image(posters[i*5+1], width=200)
+                    with col3:
+                        st.text(str(i*5+3) + ". " + name[i*5+2])
+                        st.image(posters[i*5+2], width=200)
+                    with col4:
+                        st.text(str(i*5+4) + ". " + name[i*5+3])
+                        st.image(posters[i*5+3], width=200)
+                    with col5:
+                        st.text(str(i*5+5) + ". " + name[i*5+4])
+                        st.image(posters[i*5+4], width=200)
+                except:pass
+                st.write(' ')
+            st.markdown("<h6 style='text-align: center; color: White;'>Made with the help of TMDB API...</h6>", unsafe_allow_html=True)
