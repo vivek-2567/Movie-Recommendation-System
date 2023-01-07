@@ -5,7 +5,7 @@ import requests
 
 
 st.set_page_config(page_title="Movie's Database", layout="wide")
-st.markdown("<h1 style='text-align: center; color: White;'>Movie's Databse</h1>",
+st.markdown("<h1 style='text-align: center; color: Dark Gray;'>Movie's Databse</h1>",
             unsafe_allow_html=True)
 
 
@@ -85,7 +85,7 @@ if rs == 'Trending Movies':
             st.text(str(i*5+5) + ". " + top_50_movies['title'][i*5+4])
             st.image(trending_posters[i*5+4], width=200)
 
-    st.markdown("<h6 style='text-align: center; color: White;'>Made with the help of TMDB API...</h6>",
+    st.markdown("<h6 style='text-align: center; color: Dark Gray;'>Made with the help of TMDB API...</h6>",
                 unsafe_allow_html=True)
 
 
@@ -141,7 +141,7 @@ elif rs == 'Movie Recommendations':
 
         st.write()
         st.markdown(
-            "<h6 style='text-align: center; color: White;'>Made with the help of TMDB API...</h6>", unsafe_allow_html=True)
+            "<h6 style='text-align: center; color: Dark Gray;'>Made with the help of TMDB API...</h6>", unsafe_allow_html=True)
 
 
 elif rs == 'Filtering movies on the basis of Genres':
@@ -155,7 +155,7 @@ elif rs == 'Filtering movies on the basis of Genres':
         filter_df = select(df,option_selection)
         if filter_df.empty:
             st.write("")
-            st.markdown("<h4 style='text-align: center; color: White;'>Sorry, We can't find any movie according to your selections...</h4>", unsafe_allow_html=True)
+            st.markdown("<h4 style='text-align: center; color: Dark Gray;'>Sorry, We can't find any movie according to your selections...</h4>", unsafe_allow_html=True)
         else: 
             filter_df = filter_df[['id','title']]
             posters = []
@@ -187,4 +187,4 @@ elif rs == 'Filtering movies on the basis of Genres':
                         st.image(posters[i*5+4], width=200)
                 except:pass
                 st.write(' ')
-            st.markdown("<h6 style='text-align: center; color: White;'>Made with the help of TMDB API...</h6>", unsafe_allow_html=True)
+            st.markdown("<h6 style='text-align: center; color: Dark Gray;'>Made with the help of TMDB API...</h6>", unsafe_allow_html=True)
