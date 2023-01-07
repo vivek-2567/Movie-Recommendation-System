@@ -6,7 +6,7 @@
 
 <h2>🚀 Demo</h2>
 
-[Click here for DEMO](https://vivek-2567-olympic-games-data-analysis-app-zrn7gl.streamlit.app/)
+[Click here for DEMO](https://vivek-2567-movie-recommendation-system-app-ir5ih5.streamlit.app/)
 
   
   
