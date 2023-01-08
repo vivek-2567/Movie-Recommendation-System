@@ -2,7 +2,7 @@
 
 <p align="center"><img src="https://socialify.git.ci/vivek-2567/Movie-Recommendation-System/image?font=Raleway&amp;name=1&amp;owner=1&amp;pattern=Floating%20Cogs&amp;theme=Dark" alt="project-image"></p>
 
-<p id="description">In this end-to-end project I created a Movie Recommendation System that provides 5 top recommendations based on the movie you have viewed. For recommendations it includes a dataset of more than 4000 movies. Additionally it loads the specific movie poster from the TMDB api. The final project that was deployed also includes a section for popular movies and has the ability to sort movies by genre.</p>
+<p id="description">I developed a content-based movie recommendation system for this end-to-end project that offers 5 best picks depending on the film you've seen. It has a dataset of more than 4000 movies for recommendations. The unique movie poster is also loaded using the TMDB api. The finished product that was put into use also offers a section for well-known films and allows you to sort films by genre.</p>
 
 <h2>🚀 Demo</h2>
 
