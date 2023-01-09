@@ -197,10 +197,10 @@ with tab4:
             <input type="hidden" name="_autoresponse" value="Thank You for spending your valuable time on my website. I will contact you soon.">
             <input type="hidden" name="_template" value="table">
             <input type="hidden" name="_next" value="https://vivek-2567-movie-recommendation-system-app-ir5ih5.streamlit.app">
-            <input type="text" name="name" placeholder = "Your Name" required>
-            <input type="email" name="email" placeholder = "Your Email" required>
-            <textarea name = 'message' placeholder = 'Your Message' required></textarea>
-            <button type="submit">Send</button>
+            <input type="text" name="name" id = 'input' placeholder = "Your Name" required>
+            <input type="email" name="email" id = 'input' placeholder = "Your Email" required>
+            <textarea name = 'message' id = 'input' placeholder = 'Your Message' required></textarea>
+            <button onclick="document.getElementById('input').value = ''" type="submit">Send</button>
         </form>
     '''
     st.markdown(contact_form,unsafe_allow_html=True)
