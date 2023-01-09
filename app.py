@@ -31,6 +31,10 @@ def initial_load():
     df = pd.read_csv('Filtering_movies.csv')
     return(movies, cosine_similarity, top_50_movies, trending_posters, df)
 
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
 
 movies, cosine_similarity, top_50_movies, trending_posters, df = initial_load()
 
@@ -54,17 +58,13 @@ def select(df, selection):
     df['sorting_column'] = df.apply(lambda x: best_one(x), axis=1)
     return df.sort_values('sorting_column', ascending=False).head(10)
 
+st.write("##")
+tab1, tab2, tab3, tab4 = st.tabs(
+    ['Trending Movies', 'Movie Recommendations','Filtering movies on the basis of Genres', "Get in Touch with Me"]
+)
 
-with st.sidebar:
-    rs = st.radio(
-        "WHAT ARE YOU HERE FOR TODAY??",
-        ['Trending Movies', 'Movie Recommendations',
-            'Filtering movies on the basis of Genres']
-    )
 
-if rs == 'Trending Movies':
-
-    st.subheader("Trending Movies :point_down:")
+with tab1:
 
     col1, col2, col3, col4, col5 = st.columns(5)
     for i in range(10):
@@ -89,9 +89,7 @@ if rs == 'Trending Movies':
                 unsafe_allow_html=True)
 
 
-elif rs == 'Movie Recommendations':
-
-    st.subheader("Movie Recomendations :point_down:")
+with tab2:
 
     def recommend(given):
         movie_index = movies[movies['title'] == given].index[0]
@@ -144,8 +142,8 @@ elif rs == 'Movie Recommendations':
             "<h6 style='text-align: center; color: Dark Gray;'>Made with the help of TMDB API...</h6>", unsafe_allow_html=True)
 
 
-elif rs == 'Filtering movies on the basis of Genres':
-    st.subheader("Filtering Movies :point_down:")
+with tab3:
+
     option_selection = st.multiselect(
         "Select the generes",
         ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'Foreign',
@@ -188,3 +186,23 @@ elif rs == 'Filtering movies on the basis of Genres':
                 except:pass
                 st.write(' ')
             st.markdown("<h6 style='text-align: center; color: Dark Gray;'>Made with the help of TMDB API...</h6>", unsafe_allow_html=True)
+
+
+with tab4:
+    st.write("##")
+    # st.subheader(":mailbox: Get in Touch With Me...!")
+    contact_form = '''
+        <form action="https://formsubmit.co/tokas.2sonu@gmail.com" method="POST">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_autoresponse" value="Thank You for spending your valuable time on my website. I will contact you soon.">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_next" value="https://yourdomain.co/thanks.html">
+            <input type="text" name="name" placeholder = "Your Name" required>
+            <input type="email" name="email" placeholder = "Your Email" required>
+            <textarea name = 'message' placeholder = 'Your Message' required></textarea>
+            <button type="submit">Send</button>
+        </form>
+    '''
+    st.markdown(contact_form,unsafe_allow_html=True)
+    local_css("style/style.css")
+
