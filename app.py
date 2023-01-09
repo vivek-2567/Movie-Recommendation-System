@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import pickle
 import requests
+from streamlit_option_menu import option_menu
 
 
 st.set_page_config(page_title="Movie's Database", layout="wide")
@@ -59,12 +60,26 @@ def select(df, selection):
     return df.sort_values('sorting_column', ascending=False).head(10)
 
 st.write("##")
-tab1, tab2, tab3, tab4 = st.tabs(
-    ['Trending Movies', 'Movie Recommendations','Filtering movies on the basis of Genres', "Get in Touch with Me"]
+# tab1, tab2, tab3, tab4 = st.tabs(
+#     ['Trending Movies', 'Movie Recommendations','Filtering movies on the basis of Genres', "Get in Touch with Me"]
+# )
+
+selected_tab = option_menu(
+    menu_title = None,
+    options = ['Trending Movies', 'Movie Recommendations','Filtering movies on Genres', "Get in Touch with Me"],
+    icons = ['graph-up-arrow','hand-thumbs-up','funnel','envelope-open'],
+    menu_icon = 'cast',
+    default_index = 0,
+    orientation = 'horizontal',
+    styles={
+        "icon": {"font-size": "20px"},
+        "nav-link": {"font-size": "18px"}
+    }
 )
 
+st.write("##")
 
-with tab1:
+if selected_tab == 'Trending Movies':
 
     col1, col2, col3, col4, col5 = st.columns(5)
     for i in range(10):
@@ -89,7 +104,7 @@ with tab1:
                 unsafe_allow_html=True)
 
 
-with tab2:
+elif selected_tab == 'Movie Recommendations':
 
     def recommend(given):
         movie_index = movies[movies['title'] == given].index[0]
@@ -142,7 +157,7 @@ with tab2:
             "<h6 style='text-align: center; color: Dark Gray;'>Made with the help of TMDB API...</h6>", unsafe_allow_html=True)
 
 
-with tab3:
+elif selected_tab == 'Filtering movies on Genres':
 
     option_selection = st.multiselect(
         "Select the generes",
@@ -188,12 +203,11 @@ with tab3:
             st.markdown("<h6 style='text-align: center; color: Dark Gray;'>Made with the help of TMDB API...</h6>", unsafe_allow_html=True)
 
 
-with tab4:
+elif selected_tab == 'Get in Touch with Me':
     st.write("##")
     # st.subheader(":mailbox: Get in Touch With Me...!")
     contact_form = '''
         <form action="https://formsubmit.co/tokas.2sonu@gmail.com" method="POST">
-            <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="_autoresponse" value="Thank You for spending your valuable time on my website. I will contact you soon.">
             <input type="hidden" name="_template" value="table">
             <input type="hidden" name="_next" value="https://vivek-2567-movie-recommendation-system-app-ir5ih5.streamlit.app">

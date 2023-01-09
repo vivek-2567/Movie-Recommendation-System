@@ -2,3 +2,4 @@ streamlit
 pandas 
 requests
 scikit-learn
+streamlit-option-menu
